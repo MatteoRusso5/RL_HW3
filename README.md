@@ -53,7 +53,11 @@ $ ros2 run rqt_plot rqt_plot
 In the first terminal
 ```
 $ colcon build
+```
+```
 $ source install/setup.bash
+```
+```
 $ ros2 launch iiwa_bringup iiwa.launch.py command_interface:="velocity" robot_controller:="velocity_controller"
 ```
 In the second terminal
