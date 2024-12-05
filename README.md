@@ -20,7 +20,7 @@ Source the setup files
 $ source install/setup.bash
 ```
 ## :white_check_mark: Usage 🤖
-### 1. Run Rviz and Gazebo with the launch file
+### 1. Run Rviz and Gazebo with the launch file by using the velocity interface
 
 Per runnare il mondo con l'aruco tag e interface velocity
 ⚙️
