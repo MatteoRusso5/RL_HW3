@@ -22,26 +22,15 @@ $ source install/setup.bash
 ## :white_check_mark: Usage 🤖
 ### 1. Run Rviz and Gazebo with the launch file by using the velocity interface
 
-Per runnare il mondo con l'aruco tag e interface velocity
+To run the world with aruco tag and velocity interface
 ⚙️
 ```
 $ ros2 launch iiwa_bringup iiwa.launch.py command_interface:="velocity" robot_controller:="velocity_controller"
 ```
 
-  
-Per runnare il mondo con la sfera e interface velocity
- 
+To run the world with the sphere and velocity interface
 ```
 $ ros2 launch iiwa_bringup iiwa.launch.py command_interface:="velocity" robot_controller:="velocity_controller" use_aruco:=false
-```
-Per runnare il nodo single_simple per il positioning
-```
-$ ros2 run aruco_ros single --ros-args -r /image:=/videocamera -r /camera_info:=/camera_info -p marker_id:=201 -p marker_size:=0.1 -p reference_frame:=world -p marker_frame:=aruco_marker_frame -p camera_frame:=camera_link_optical
-```
-
-Per runnare il nodo single_simple per il look-at-point
-```
-$ ros2 run aruco_ros single --ros-args -r /image:=/videocamera -r /camera_info:=/camera_info -p marker_id:=201 -p marker_size:=0.1 -p reference_frame:=camera_link_optical -p marker_frame:=aruco_marker_frame -p camera_frame:=camera_link_optical
 ```
 
 ## To use the Effort Controller ⚙️
@@ -59,20 +48,72 @@ $ ros2 run ros2_kdl_package ros2_kdl_node --ros-args -p cmd_interface:=effort
 ```
 $ ros2 run rqt_plot rqt_plot
 ```
-Per runnare il nodo ros2_kdl_vision_control per task positioning
+## To execute tasks: positioning or look-at-point
+### 1. Task positioning
+In the first terminal
 ```
+$ colcon build
+$ source install/setup.bash
+$ ros2 launch iiwa_bringup iiwa.launch.py command_interface:="velocity" robot_controller:="velocity_controller"
+```
+In the second terminal
+```
+$ source install/setup.bash
+$ ros2 run aruco_ros single --ros-args -r /image:=/videocamera -r /camera_info:=/camera_info -p marker_id:=201 -p marker_size:=0.1 -p reference_frame:=world -p marker_frame:=aruco_marker_frame -p camera_frame:=camera_link_optical
+```
+To run rqt_image_view in another terminal rqt_image_view
+```
+$ source install/setup.bash
+$ ros2 run rqt_image_view rqt_image_view
+```
+To run the ros2_kdl_vision_control node in another terminal
+```
+$ source install/setup.bash
 $ ros2 run ros2_kdl_package ros2_kdl_vision_control
 ```
-
-Per runnare il nodo ros2_kdl_vision_control per task look-at-point
-
+### 2. Task look-at-point
+In the first terminal
 ```
+$ colcon build
+$ source install/setup.bash
+$ ros2 launch iiwa_bringup iiwa.launch.py command_interface:="velocity" robot_controller:="velocity_controller"
+```
+In the second terminal
+```
+$ source install/setup.bash
+$ ros2 run aruco_ros single --ros-args -r /image:=/videocamera -r /camera_info:=/camera_info -p marker_id:=201 -p marker_size:=0.1 -p reference_frame:=camera_link_optical -p marker_frame:=aruco_marker_frame -p camera_frame:=camera_link_optical
+```
+To run rqt_image_view in another terminal rqt_image_view
+```
+$ source install/setup.bash
+$ ros2 run rqt_image_view rqt_image_view
+```
+To run the ros2_kdl_vision_control node in another terminal
+```
+$ source install/setup.bash
 $ ros2 run ros2_kdl_package ros2_kdl_vision_control --ros-args -p task:="look-at-point"
 ```
-
-Per runnare il nodo ros2_kdl_vision_control per il punto b
-
+## Point 2B
+In the first terminal
 ```
+$ colcon build
+$ source install/setup.bash
+$ ros2 launch iiwa_bringup iiwa.launch.py command_interface:="effort" robot_controller:="effort_controller"
+```
+In the second terminal
+```
+$ source install/setup.bash
+$ ros2 run aruco_ros single --ros-args -r /image:=/videocamera -r /camera_info:=/camera_info -p marker_id:=201 -p marker_size:=0.1 -p reference_frame:=camera_link_optical -p marker_frame:=aruco_marker_frame -p camera_frame:=camera_link_optical
+```
+To run rqt_image_view in another terminal rqt_image_view
+```
+$ source install/setup.bash
+$ ros2 run rqt_image_view rqt_image_view
+```
+
+To run ros2_kdl_vision_control node
+```
+$ source install/setup.bash
 $ ros2 run ros2_kdl_package ros2_kdl_vision_control --ros-args -p task:="look-at-point" -p cmd_interface:=effort
 ```
 
