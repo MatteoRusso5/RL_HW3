@@ -33,21 +33,6 @@ To run the world with the sphere and velocity interface
 $ ros2 launch iiwa_bringup iiwa.launch.py command_interface:="velocity" robot_controller:="velocity_controller" use_aruco:=false
 ```
 
-## To use the Effort Controller ⚙️
-### 1. Launch Gazebo with the effort controller
- ```  
-$ ros2 launch iiwa_bringup iiwa.launch.py command_interface:="effort" robot_controller:="effort_controller"
-```
-### 2. Send effort commands to the robot
-
-```
-$ ros2 run ros2_kdl_package ros2_kdl_node --ros-args -p cmd_interface:=effort
-```
-
-### 3. To view torques sent to the robot run 
-```
-$ ros2 run rqt_plot rqt_plot
-```
 ## To execute tasks: positioning or look-at-point
 ### 1. Task positioning
 In the first terminal
@@ -63,61 +48,87 @@ $ ros2 launch iiwa_bringup iiwa.launch.py command_interface:="velocity" robot_co
 In the second terminal
 ```
 $ source install/setup.bash
+```
+```
 $ ros2 run aruco_ros single --ros-args -r /image:=/videocamera -r /camera_info:=/camera_info -p marker_id:=201 -p marker_size:=0.1 -p reference_frame:=world -p marker_frame:=aruco_marker_frame -p camera_frame:=camera_link_optical
 ```
 To run rqt_image_view in another terminal rqt_image_view
 ```
 $ source install/setup.bash
+```
+```
 $ ros2 run rqt_image_view rqt_image_view
 ```
 To run the ros2_kdl_vision_control node in another terminal
 ```
 $ source install/setup.bash
+```
+```
 $ ros2 run ros2_kdl_package ros2_kdl_vision_control
 ```
 ### 2. Task look-at-point
 In the first terminal
 ```
 $ colcon build
+```
+```
 $ source install/setup.bash
+```
+```
 $ ros2 launch iiwa_bringup iiwa.launch.py command_interface:="velocity" robot_controller:="velocity_controller"
 ```
 In the second terminal
 ```
 $ source install/setup.bash
+```
+```
 $ ros2 run aruco_ros single --ros-args -r /image:=/videocamera -r /camera_info:=/camera_info -p marker_id:=201 -p marker_size:=0.1 -p reference_frame:=camera_link_optical -p marker_frame:=aruco_marker_frame -p camera_frame:=camera_link_optical
 ```
 To run rqt_image_view in another terminal rqt_image_view
 ```
 $ source install/setup.bash
+```
+```
 $ ros2 run rqt_image_view rqt_image_view
 ```
 To run the ros2_kdl_vision_control node in another terminal
 ```
 $ source install/setup.bash
+```
+```
 $ ros2 run ros2_kdl_package ros2_kdl_vision_control --ros-args -p task:="look-at-point"
 ```
 ## Point 2B
 In the first terminal
 ```
 $ colcon build
+```
+```
 $ source install/setup.bash
+```
+```
 $ ros2 launch iiwa_bringup iiwa.launch.py command_interface:="effort" robot_controller:="effort_controller"
 ```
 In the second terminal
 ```
 $ source install/setup.bash
+```
+```
 $ ros2 run aruco_ros single --ros-args -r /image:=/videocamera -r /camera_info:=/camera_info -p marker_id:=201 -p marker_size:=0.1 -p reference_frame:=camera_link_optical -p marker_frame:=aruco_marker_frame -p camera_frame:=camera_link_optical
 ```
 To run rqt_image_view in another terminal rqt_image_view
 ```
 $ source install/setup.bash
+```
+```
 $ ros2 run rqt_image_view rqt_image_view
 ```
 
 To run ros2_kdl_vision_control node
 ```
 $ source install/setup.bash
+```
+```
 $ ros2 run ros2_kdl_package ros2_kdl_vision_control --ros-args -p task:="look-at-point" -p cmd_interface:=effort
 ```
 
