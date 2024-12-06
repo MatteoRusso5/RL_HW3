@@ -60,7 +60,7 @@ In the second terminal
 ```
 $ ros2 run aruco_ros single --ros-args -r /image:=/videocamera -r /camera_info:=/camera_info -p marker_id:=201 -p marker_size:=0.1 -p reference_frame:=camera_link_optical -p marker_frame:=aruco_marker_frame -p camera_frame:=camera_link_optical
 ```
-To run rqt_image_view in another terminal rqt_image_view
+To run rqt_image_view in another terminal
 ```
 $ ros2 run rqt_image_view rqt_image_view
 ```
@@ -81,7 +81,7 @@ To run rqt_image_view in another terminal
 ```
 $ ros2 run rqt_image_view rqt_image_view
 ```
-To run ros2_kdl_vision_control node
+To run ros2_kdl_vision_control node in another terminal
 ```
 $ ros2 run ros2_kdl_package ros2_kdl_vision_control --ros-args -p task:="look-at-point" -p cmd_interface:=effort
 ```
