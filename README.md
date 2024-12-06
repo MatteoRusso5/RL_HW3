@@ -30,6 +30,7 @@ In another terminal
 ```
 ros2 run rqt_image_view rqt_image_view
 ```
+and select `/processed_image`.
 ### 2. Run Rviz and Gazebo with the launch file by using the velocity interface
  
 To run the world with aruco tag and velocity interface
