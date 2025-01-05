@@ -35,7 +35,7 @@ private:
 
         // Creation of the mask for the blue color
         cv::Mat mask;
-        cv::inRange(hsv_image, cv::Scalar(100, 150, 50), cv::Scalar(140, 255, 255), mask);
+        cv::inRange(hsv_image, cv::Scalar(100, 150, 50), cv::Scalar(140, 255, 255), mask); // range blue
 
         // Operations on the mask
         cv::erode(mask, mask, cv::Mat(), cv::Point(-1, -1), 2);
