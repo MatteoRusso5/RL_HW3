@@ -289,7 +289,7 @@ class DetectionAndControl : public rclcpp::Node
                    
                     Matrix6d R = Matrix6d::Zero();
 
-                    R.block(0,0,3,3)=Rc;
+                    R.block(0,0,3,3)=Rc; // position (0,0), dimension (3,3)
                     R.block(3,3,3,3)=Rc;
                 
 
