@@ -165,9 +165,6 @@ class DetectionAndControl : public rclcpp::Node
 
                 planner_ = KDLPlanner(traj_duration, acc_duration, init_position, end_position); // currently using cubic_polynomial for rectiliniar path
                 p = planner_.compute_trajectory(t);
-
-                // compute errors
-                Eigen::Vector3d error = computeLinearError(p.pos, Eigen::Vector3d(init_cart_pose_.p.data));
             }
             else if(cmd_interface_ == "effort"){
                 //LOOK AT POINT
