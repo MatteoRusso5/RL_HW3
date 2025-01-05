@@ -370,12 +370,6 @@ class DetectionAndControl : public rclcpp::Node
                         
                         KDLController controller_(*robot_);
                         joint_efforts_.data = controller_.idCntr(joint_positions_, joint_velocities_, joint_accelerations_d_, 50.0, 5.0);
-
-                        KDL::Frame frame_final = robot_->getEEFrame();
-                        KDL::Twist velocities_final; velocities_final.vel=KDL::Vector::Zero(); velocities_final.rot=KDL::Vector::Zero();
-                        KDL::Twist acceleration_final; acceleration_final.vel=KDL::Vector::Zero(); acceleration_final.rot=KDL::Vector::Zero();
-
-
                     }
                     
 
