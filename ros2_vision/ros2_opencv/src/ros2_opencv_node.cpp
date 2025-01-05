@@ -48,7 +48,7 @@ private:
 
         // Draw of the contours on the original image
         cv::Mat processed_image = image.clone();
-        cv::drawContours(processed_image, contours, -1, cv::Scalar(0, 255, 0), 2);
+        cv::drawContours(processed_image, contours, -1, cv::Scalar(0, 255, 0), 2); // green contours
 
         // Write message to be sent. Member function toImageMsg() converts a CvImage
         // into a ROS image message
