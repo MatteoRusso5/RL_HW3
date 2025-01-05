@@ -37,7 +37,7 @@ private:
         cv::Mat mask;
         cv::inRange(hsv_image, cv::Scalar(100, 150, 50), cv::Scalar(140, 255, 255), mask); // range blue
 
-        // Operations on the mask
+        // Operations on the mask to better visualization
         cv::erode(mask, mask, cv::Mat(), cv::Point(-1, -1), 2);
         cv::dilate(mask, mask, cv::Mat(), cv::Point(-1, -1), 2);
 
