@@ -165,6 +165,9 @@ class DetectionAndControl : public rclcpp::Node
 
                 planner_ = KDLPlanner(traj_duration, acc_duration, init_position, end_position); // currently using cubic_polynomial for rectiliniar path
                 p = planner_.compute_trajectory(t);
+
+                // compute errors
+                Eigen::Vector3d error = computeLinearError(p.pos, Eigen::Vector3d(init_cart_pose_.p.data));
             }
             else if(cmd_interface_ == "effort"){
                 //LOOK AT POINT
@@ -246,15 +249,26 @@ class DetectionAndControl : public rclcpp::Node
             {
                 if(task_ == "positioning") {
                     if(cmd_interface_ == "velocity"){
+                        if(t_ <= total_time) {
                             p = planner_.compute_trajectory(t_);
-                            
+                            if(t_ >= total_time - dt) {                     // last dt before the end of the trajectory
+                                p = planner_.compute_trajectory(t_);
+                                final_pos = p;
+                            }
+                        }
+                        else {
+                            // std::cout << "tempo attuale" << t_;
+                            p.pos = final_pos.pos;
+                            p.vel = Eigen::Vector3d::Zero();
+                            p.acc = Eigen::Vector3d::Zero();
+                        }
 
                         // Compute EE frame
                         KDL::Frame cartpos = robot_->getEEFrame();           
 
                         KDL::Rotation y_rotation = KDL::Rotation::RotY(M_PI);
                         KDL::Rotation marker_frame_rotated;
-                        marker_frame_rotated = marker_frame_.M * y_rotation; // to look at the marker
+                        marker_frame_rotated = marker_frame_.M * y_rotation;
 
 
 
@@ -289,7 +303,7 @@ class DetectionAndControl : public rclcpp::Node
                    
                     Matrix6d R = Matrix6d::Zero();
 
-                    R.block(0,0,3,3)=Rc; // position (0,0), dimension (3,3)
+                    R.block(0,0,3,3)=Rc;
                     R.block(3,3,3,3)=Rc;
                 
 
@@ -370,6 +384,12 @@ class DetectionAndControl : public rclcpp::Node
                         
                         KDLController controller_(*robot_);
                         joint_efforts_.data = controller_.idCntr(joint_positions_, joint_velocities_, joint_accelerations_d_, 50.0, 5.0);
+
+                        KDL::Frame frame_final = robot_->getEEFrame();
+                        KDL::Twist velocities_final; velocities_final.vel=KDL::Vector::Zero(); velocities_final.rot=KDL::Vector::Zero();
+                        KDL::Twist acceleration_final; acceleration_final.vel=KDL::Vector::Zero(); acceleration_final.rot=KDL::Vector::Zero();
+
+
                     }
                     
 
@@ -524,5 +544,3 @@ int main( int argc, char** argv )
     rclcpp::shutdown();
     return 1;
 }
-
-
